@@ -27,10 +27,6 @@ public class AI : MonoBehaviour
 
     private void Start()
     {
-        float count = 0.3f;
-
-        count -= Time.deltaTime;
-
         if (count <= 0f) NextPoint();
     }
 
@@ -114,6 +110,15 @@ public class AI : MonoBehaviour
         if (other.CompareTag("Explosion")) Destroy(gameObject);
 
         if (other.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+            gsm.GameOver();
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
             Destroy(other.gameObject);
             gsm.GameOver();
